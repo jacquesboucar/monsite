@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the firstest feature.
+ */
+
+include_once('firstest.features.inc');

@@ -13,40 +13,28 @@ return $block;
 function jack_block_contents($delta){
 return 'ceci est mon premier bloc';
 }
-function jack_permission(){
-return array(
-'Administration du module' => array(
-'title' => 'administrer mon module',
-'description' => 'Effectuer des taches dadminisration',
-),
-);
+function jack_menu() {
+	$items['jack'] = array(
+	'title' => 'Mon Formulaire',
+	'page callback' => 'drupal_get_form',
+	'page arguments' => array('jack_nameform'),
+	'access callback' => TRUE,
+	'type' => MENU_NORMAL_ITEM);
+	return $items;
 }
-function jack_menu(){
- $items['jo'] = array(
-   'title' => 'les permissions pour mon module',
-   
-   'access callback' => 'user_access',
-   'access arguments' => array('Administration du module'),
-   'type' => MENU_CALLBACK,
-   'page callback' => 'jack_content',
-   );
-   return $items;
- }
- 
- 
- function jack_content() {
-  return 'test permission';
- }
-   
-  function jack_user_view($account) {
-  if (user_access('creer le contenu du bloc')){
-     $account->content['summary']['blog'] = array(
-         '#type' => 'user_profile_item',
-         '#title' => 'blog',
-         '#markup' => 'voir les blogs récents', "blog/$account->uid", 
-                       array('attributes' => array('title' => "nom utilisateur du blog.",
-                            array('username' => format_username($account)))),
-                            '#attributes' => array('class' => array('blog')),
-         );
-   }
- }  
+function jack_nameform() {
+	$form['user name'] = array(
+		'#title' => 'your name',
+		'#type' => 'textfield',
+		'#description' => 'please enter your name',
+		);
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => 'envoyer');  		 	
+	return $form;
+}
+
+function jack_nameform_submit($form, &$form_state) {
+	$name = $form_state['value']['user name'];
+	drupal_set_message(array('%name' => $name));
+}

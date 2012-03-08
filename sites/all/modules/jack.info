@@ -4,6 +4,6 @@ name = jack
 
 
 description = "mon premier module"
-core = 7.X
+core = 7.x
 package = jack developpement
 files[] = jack.module
